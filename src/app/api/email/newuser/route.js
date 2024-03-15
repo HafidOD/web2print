@@ -19,7 +19,7 @@ export async function POST(req) {
     });
     const mailOptions = {
       from: `"Web2Print" <${process.env.SMTP_USER}>`,
-      to: `hafid@tachuela.mx`,
+      to: `hafid@tachuela.mx, dsanchez@gruporegio.mx, marriott@gruporegio.mx, rocio@tachuela.mx`,
       // to: `${items.user.email}, marriott@gruporegio.mx, paloma.berumen@marriott.com, Asenath.araque@marriott.com, Amanda.k.perez@marriott.com, carlos.olguin@marriott.com, hafid@tachuela.mx`,
       // to: `${items.user.email}, marriott@gruporegio.mx`,
       subject: "Solicitud nuevo usuario",
