@@ -1,21 +1,26 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-// import { match } from "@formatjs/intl-localematcher";
-// import Negotiator from "negotiator";
 
 export default withAuth(
-  function middleware(req) {
-    // console.log(req.nextUrl.pathname);
-    // console.log(req.nextauth);
-    // let locales = ["en", "es"];
-    // let defaultLocale = "en";
+  async function middleware(req) {
+    // Si la ruta no tiene el prefijo /en o /es, redirigir a /en
     if (
-      (req.nextUrl.pathname.startsWith("/en/admin") &&
-        req.nextauth.token.role !== 1) ||
-      (req.nextUrl.pathname.startsWith("/es/admin") &&
-        req.nextauth.token.role !== 1)
+      !req.nextUrl.pathname.startsWith("/en") &&
+      !req.nextUrl.pathname.startsWith("/es")
     ) {
-      return new NextResponse("No autorizado");
+      return NextResponse.redirect(new URL("/en", req.url));
+    }
+
+    // Verificar permisos solo si el usuario está autenticado
+    if (req.nextauth?.token) {
+      if (
+        (req.nextUrl.pathname.startsWith("/en/admin") &&
+          req.nextauth.token.role !== 1) ||
+        (req.nextUrl.pathname.startsWith("/es/admin") &&
+          req.nextauth.token.role !== 1)
+      ) {
+        return new NextResponse("No autorizado");
+      }
     }
   },
   {
@@ -34,6 +39,8 @@ export const config = {
     "/es/dashboard/:path*",
     "/es/admin",
     "/es/admin/:path*",
+    "/",
+    "/dashboard/:path*",
+    "/admin/:path*",
   ],
-  // matcher: ["/dashboard", "/dashboard/:path*", "/app/:path*", ""],
 };

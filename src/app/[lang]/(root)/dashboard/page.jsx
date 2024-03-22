@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth";
 import Enterpises from "@/components/Enterpises";
 import { getDictionary } from "@/utils/dictionary";
+import { redirect } from "next/navigation";
 
 const URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -17,6 +18,13 @@ export default async function DashboardPage({ params }) {
 
   // console.log(session.user);
   if (!session) return;
+  // console.log(!params.lang);
+  // const baseLang = params.lang;
+  // if (!baseLang) {
+  //   redirect(`/en/dashboard`);
+  //   // router.push("/en/dashboard");
+  // }
+  // console.log(baseLang);
   const lang = await getDictionary(params.lang);
   // console.log(lang);
   const user = await fetchUser(session.user.id);
