@@ -24,7 +24,7 @@ const lang = {
     "error-retrieving-companies": "Error while retrieving the brands",
     "error-retrieving-addresses": "Error while retrieving the addresses",
     "email-use": "This email is already in use",
-    "select-property": "Select a property",
+    "select-property": "Property Name",
     "select-type-user": "Select a type user",
     "select-option": "Select a option",
     "select-currency": "Select currency",
@@ -32,6 +32,10 @@ const lang = {
     local: "Local",
     national: "National",
     foreign: "Foreign",
+    mexico: "Mexico",
+    caribbean: "Caribbean",
+    central: "Central",
+    "south-america": "South America",
     login: "Log In",
     "user-register": "User registration request",
     send: "Send",
@@ -56,7 +60,7 @@ const lang = {
     "error-retrieving-properties": "Error al obtener las propiedades",
     "error-retrieving-addresses": "Error al obtener las direcciones",
     "email-use": "El email ya está en uso",
-    "select-property": "Selecciona la propiedad",
+    "select-property": "Nombre de la propiedad",
     "select-type-user": "Selecciona el tipo de usuario",
     "select-option": "Selecciona una opción",
     "select-currency": "Selecciona la divisa",
@@ -64,6 +68,10 @@ const lang = {
     local: "Local",
     national: "Nacional",
     foreign: "Extranjero",
+    mexico: "México",
+    caribbean: "Caribe",
+    central: "Centro",
+    "south-america": "Sudamérica",
     login: "Iniciar Sesión",
     "user-register": "Solicitud de alta de usuario",
     send: "Enviar",
@@ -75,7 +83,7 @@ export default function PageRegister({ params }) {
     email: "",
     telefono: "",
     userName: "",
-    propertyId: null,
+    propertyId: "",
     enterprises: [],
     typePrice: null, //1:local, 2:nacional, 3:extrangero
   });
@@ -114,15 +122,12 @@ export default function PageRegister({ params }) {
   };
 
   useEffect(() => {
-    // Hacer una solicitud fetch para obtener las empresas
     fetch("/api/properties")
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.enterprises);
-        // Extraer los IDs de las empresas y establecerlos como opciones
         const options = data.properties.map((property) => ({
           value: property.propertyName,
-          label: property.propertyName, // Supongamos que el nombre de la empresa se llama 'name'
+          label: property.propertyName,
         }));
         setPropertyOptions(options);
       })
@@ -133,11 +138,9 @@ export default function PageRegister({ params }) {
     fetch("/api/enterprises")
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.enterprises);
-        // Extraer los IDs de las empresas y establecerlos como opciones
         const options = data.enterprises.map((enterprise) => ({
           value: enterprise.enterpriseName,
-          label: enterprise.enterpriseName, // Supongamos que el nombre de la empresa se llama 'name'
+          label: enterprise.enterpriseName,
         }));
         setEnterpriseOptions(options);
       })
@@ -223,23 +226,17 @@ export default function PageRegister({ params }) {
             >
               {lang[params.lang]["property"]}:
             </label>
-            <select
+            <input
               name="propertyId"
+              type="text"
+              placeholder={lang[params.lang]["select-property"]}
               onChange={handleChange}
-              value={user.propertyId}
-              className="w-full px-3 py-2 border shadow"
+              value={user.userName}
+              className="w-full px-3 py-2 border shadow appearance-none"
               required
-            >
-              <option value="">{lang[params.lang]["select-property"]}</option>
-
-              {propertyOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            />
             <label
-              htmlFor="userName"
+              htmlFor="propertyId"
               className="block my-2 text-sm font-bold text-primaryBlue"
             >
               {lang[params.lang]["full-username"]}:
@@ -322,10 +319,13 @@ export default function PageRegister({ params }) {
               required
             >
               <option value="">{lang[params.lang]["select-option"]}</option>
-
-              <option value="LOCAL">{lang[params.lang]["local"]}</option>
-              <option value="NACIONAL">{lang[params.lang]["national"]}</option>
-              <option value="EXTRANJERO">{lang[params.lang]["foreign"]}</option>
+              <option value="Quintana Roo">Quintana Roo</option>
+              <option value="Mexico">{lang[params.lang]["mexico"]}</option>
+              <option value="Caribe">{lang[params.lang]["caribbean"]}</option>
+              <option value="Centro">{lang[params.lang]["central"]}</option>
+              <option value="Sudamerica">
+                {lang[params.lang]["south-america"]}
+              </option>
             </select>
 
             <button
