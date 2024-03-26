@@ -221,7 +221,7 @@ export default function PageRegister({ params }) {
             ref={form}
           >
             <label
-              htmlFor="property"
+              htmlFor="propertyId"
               className="block my-2 text-sm font-bold text-primaryBlue"
             >
               {lang[params.lang]["property"]}:
@@ -231,12 +231,12 @@ export default function PageRegister({ params }) {
               type="text"
               placeholder={lang[params.lang]["select-property"]}
               onChange={handleChange}
-              value={user.userName}
+              value={user.propertyId}
               className="w-full px-3 py-2 border shadow appearance-none"
               required
             />
             <label
-              htmlFor="propertyId"
+              htmlFor="userName"
               className="block my-2 text-sm font-bold text-primaryBlue"
             >
               {lang[params.lang]["full-username"]}:
