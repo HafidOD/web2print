@@ -39,6 +39,7 @@ const lang = {
     login: "Log In",
     "user-register": "User registration request",
     send: "Send",
+    position: "Position",
   },
   es: {
     property: "Propiedad",
@@ -75,6 +76,7 @@ const lang = {
     login: "Iniciar Sesión",
     "user-register": "Solicitud de alta de usuario",
     send: "Enviar",
+    position: "Puesto",
   },
 };
 
@@ -83,6 +85,7 @@ export default function PageRegister({ params }) {
     email: "",
     telefono: "",
     userName: "",
+    position: "",
     propertyId: "",
     enterprises: [],
     typePrice: null, //1:local, 2:nacional, 3:extrangero
@@ -158,6 +161,7 @@ export default function PageRegister({ params }) {
     formData.append("email", user.email);
     formData.append("telefono", user.telefono);
     formData.append("userName", user.userName);
+    formData.append("position", user.position);
     formData.append("property", user.propertyId);
     formData.append("enterprises", user.enterprises);
     formData.append("typePrice", user.typePrice);
@@ -278,6 +282,22 @@ export default function PageRegister({ params }) {
               onChange={handleChange}
               value={user.telefono}
               className="w-full px-3 py-2 border shadow appearance-none"
+              required
+            />
+            <label
+              htmlFor="position"
+              className="block my-2 text-sm font-bold text-primaryBlue"
+            >
+              {lang[params.lang]["position"]}:
+            </label>
+            <input
+              name="position"
+              type="text"
+              placeholder={lang[params.lang]["position"]}
+              onChange={handleChange}
+              value={user.position}
+              className="w-full px-3 py-2 border shadow appearance-none"
+              required
             />
 
             <label

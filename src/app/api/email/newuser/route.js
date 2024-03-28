@@ -22,7 +22,7 @@ export async function POST(req) {
     });
     const mailOptions = {
       from: `"Web2Print" <${process.env.SMTP_USER}>`,
-      to: `hafid@tachuela.mx, dsanchez@gruporegio.mx, marriott@gruporegio.mx, rocio@tachuela.mx`,
+      to: `hafid@tachuela.mx, dsanchez@gruporegio.mx, marriott@gruporegio.mx, rocio@tachuela.mx, fgarzag@gruporegio.mx`,
       // to: `hafid@tachuela.mx`,
       subject: "Solicitud alta Web2print",
       html: emailContent,
@@ -48,6 +48,7 @@ function generateEmailContent(data, currentDate, brandsArray) {
   content += `<p><b>Nombre:</b> ${data.get("userName")}</p>`;
   content += `<p><b>Email:</b> ${data.get("email")}</p>`;
   content += `<p><b>Teléfono:</b> ${data.get("telefono")}</p>`;
+  content += `<p><b>Puesto:</b> ${data.get("position")}</p>`;
   content += `<p><b>Locación de usuario:</b> ${data.get("typePrice")}</p>`;
   content += `<p><b>Propiedad:</b> ${data.get("property")}</p>`;
   content += "<p><b>Marcas:</b></p><ul>";

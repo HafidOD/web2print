@@ -81,9 +81,9 @@ export default function ProductCard({
                 ${priceProduct} {currency}
               </p>
             )}
-            <p className="text-xs leading-normal text-secondGray md:text-sm">
+            {/* <p className="text-xs leading-normal text-secondGray md:text-sm">
               Stock: {product.stockProduct}
-            </p>
+            </p> */}
             <p className="text-xs leading-normal text-secondGray md:text-xs">
               {product.unitsPackage} {paramslang.products["pieces-unit"]}
             </p>
